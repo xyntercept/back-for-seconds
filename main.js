@@ -5,10 +5,25 @@ function makeCBTA(name,x,y) {
 }
 Game.registerMod("BackForSeconds", {
   init:function(){
+    
   const customStyle = document.createElement('style')
   customStyle.type = 'text/css'
   customStyle.textContent = `
-  .icon
+  .note .icon
+  {
+    image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;                 /* Future-browsers                 */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+  }`
+  document.head.appendChild(customStyle)
+
+  const customStyle = document.createElement('style')
+  customStyle.type = 'text/css'
+  customStyle.textContent = `
+  .crate
   {
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
