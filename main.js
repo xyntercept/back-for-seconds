@@ -8,7 +8,7 @@ Game.registerMod("BackForSeconds", {
   const customStyle = document.createElement('style')
   customStyle.type = 'text/css'
   customStyle.textContent = `
-  .crate
+  .achievement
   {
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
