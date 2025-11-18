@@ -1,7 +1,6 @@
 function makeCBTA(name,x,y) {
   Game.BankAchievement(name)
   Game.Achievements[name].icon = [x,y,'https://file.garden/aRv22xnkRhEaeVoP/BFSspritesheet.png?v=1763442527821']
-  Game.Achievements[name].desc = "Bake <b>" + Game.Achievements[name].threshold + " cookies</b> in one ascension."
 }
 Game.registerMod("BackForSeconds", {
   init:function(){
@@ -64,5 +63,15 @@ Game.registerMod("BackForSeconds", {
   makeCBTA("Life, liberty, and pursuit of cookies",7,2)
   makeCBTA("Immovable object",8,2)
   makeCBTA("Call of the void",9,2)
+
+  LocalizeUpgradesAndAchievs()
+
+  eval('Game.LoadSave='+Game.LoadSave.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
+  eval('Game.LoadSave='+Game.LoadSave.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
+  eval('Game.LoadSave='+Game.LoadSave.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
+  eval('Game.UpdateMenu='+Game.UpdateMenu.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
+  eval('Game.UpdateMenu='+Game.UpdateMenu.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
+  eval('Game.Win='+Game.Win.toString().replace("Game.CountsAsAchievementOwned", "it.id < 643 && Game.CountsAsAchievementOwned"))
+  eval('Game.RemoveAchiev='+Game.RemoveAchiev.toString().replace("Game.CountsAsAchievementOwned", "Game.Achievements[what].id < 643 && Game.CountsAsAchievementOwned"))
   }
   })
