@@ -1,7 +1,15 @@
 function makeCBTA(name,x,y) {
   Game.BankAchievement(name)
   Game.Achievements[name].icon = [x,y,'https://file.garden/aRv22xnkRhEaeVoP/BFSspritesheet.png?v=1763442527821']
+  BFSachievements.push(Game.Achievements[name])
 }
+
+function addPool(achievs) {
+  for (var i = 0; i < achievs.length; i++) {
+    achievs[i].pool = 'back for seconds'
+  }
+}  
+
 Game.registerMod("BackForSeconds", {
   init:function(){
     
@@ -32,6 +40,8 @@ Game.registerMod("BackForSeconds", {
     -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
   }`
   document.head.appendChild(customStyle2)
+
+  BFSachievements = [ ]
 
   makeCBTA("Back for seconds",0,0)
   makeCBTA("Unstoppable force",1,0)
@@ -64,14 +74,7 @@ Game.registerMod("BackForSeconds", {
   makeCBTA("Immovable object",8,2)
   makeCBTA("Call of the void",9,2)
 
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievements=[];","addPool(BFSachievements)\nvar achievements=[];"))
   LocalizeUpgradesAndAchievs()
-
-  eval('Game.LoadSave='+Game.LoadSave.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
-  eval('Game.LoadSave='+Game.LoadSave.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
-  eval('Game.LoadSave='+Game.LoadSave.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
-  eval('Game.UpdateMenu='+Game.UpdateMenu.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
-  eval('Game.UpdateMenu='+Game.UpdateMenu.toString().replace("Game.CountsAsAchievementOwned", "me.id < 643 && Game.CountsAsAchievementOwned"))
-  eval('Game.Win='+Game.Win.toString().replace("Game.CountsAsAchievementOwned", "it.id < 643 && Game.CountsAsAchievementOwned"))
-  eval('Game.RemoveAchiev='+Game.RemoveAchiev.toString().replace("Game.CountsAsAchievementOwned", "Game.Achievements[what].id < 643 && Game.CountsAsAchievementOwned"))
   }
   })
