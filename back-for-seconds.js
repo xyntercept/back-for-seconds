@@ -4,9 +4,9 @@ function makeCBTA(name,x,y) {
   BFSachievements.push(Game.Achievements[name])
 }
 
-function addPool(achievs) {
+function addPool(achievs,pool) {
   for (var i = 0; i < achievs.length; i++) {
-    achievs[i].pool = 'back for seconds'
+    achievs[i].pool = pool
   }
 }  
 
@@ -74,7 +74,9 @@ Game.registerMod("BackForSeconds", {
   makeCBTA("Immovable object",8,2)
   makeCBTA("Call of the void",9,2)
 
-  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievements=[];","addPool(BFSachievements)\nvar achievements=[];"))
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addPool(BFSachievements,'normal');\nvar achievementsStr='';"))
   LocalizeUpgradesAndAchievs()
   }
   })
