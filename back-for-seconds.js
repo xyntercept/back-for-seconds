@@ -13,10 +13,17 @@ function makeShadow(name,desc,[x,y,sheet]) {
   AllBFS.push(Game.Achievements[name])
 }
 
-function addPool(achievs,pool) {
+function addBFSPool(achievs,pool) {
   for (var i = 0; i < achievs.length; i++) {
     achievs[i].pool = pool
   }
+}
+
+function checkIndustrialSprawl() {
+  for (var i in Game.buffs) {
+    if (Game.buffs[i].type.name == 'building buff' && Game.buffs[i].maxTime >= 72000) return true
+  }
+  return false
 }
 
 Game.registerMod("BackForSeconds", {
@@ -86,7 +93,7 @@ Game.registerMod("BackForSeconds", {
 
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
-  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addPool(BFSachievements,'normal');\nvar achievementsStr='';"))
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'normal');\nvar achievementsStr='';"))
 
   BFSshadows = [ ]
     
@@ -101,6 +108,8 @@ Game.registerMod("BackForSeconds", {
   Game.Achievements["Sans Undertale"].threshold = 10**164
     
   LocalizeUpgradesAndAchievs()
+
+  Game.registerHook('logic',function(){if (checkIndustrialSprawl()) Game.Win("Industrial sprawl")})
   },
 
   save:function(){
