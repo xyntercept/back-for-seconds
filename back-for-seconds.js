@@ -110,6 +110,8 @@ Game.registerMod("BackForSeconds", {
   LocalizeUpgradesAndAchievs()
 
   Game.registerHook('logic',function(){if (checkIndustrialSprawl()) Game.Win("Industrial sprawl")})
+
+  eval("Game.Logic="+Game.Logic.toString().replace("if (Game.T%(Game.fps)==0 && Math.random()<1/1000000) Game.Win('Just plain lucky');","if (Game.T%(Game.fps)==0)\nvar JPLnum = Math.random()\nif (JPLnum<1/1000000) Game.Win('Just plain lucky');\nif (JPLnum<1/1000000000) Game.Win('Refined multitabber');"))
   },
 
   save:function(){
