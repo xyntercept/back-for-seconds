@@ -1,14 +1,20 @@
 function makeCBTA(name,x,y) {
   Game.BankAchievement(name)
-  Game.Achievements[name].icon = [x,y,'https://file.garden/aRv22xnkRhEaeVoP/BFSspritesheet.png?v=1763442527821']
+  Game.Achievements[name].icon = [x,y,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528']
   BFSachievements.push(Game.Achievements[name])
+}
+
+function makeShadow(name,desc,[x,y,sheet]) {
+  new Game.Achievement(name,desc,[x,y,sheet])
+  Game.Achievements[name].pool = 'shadow'
+  BFSshadows.push(Game.Achievements[name])
 }
 
 function addPool(achievs,pool) {
   for (var i = 0; i < achievs.length; i++) {
     achievs[i].pool = pool
   }
-}  
+}
 
 Game.registerMod("BackForSeconds", {
   init:function(){
@@ -77,6 +83,28 @@ Game.registerMod("BackForSeconds", {
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addPool(BFSachievements,'normal');\nvar achievementsStr='';"))
+
+  BFSshadows = [ ]
+    
+  makeShadow("Gambler's raving fantasy","Cast Force the Hand of Fate from Gambler's Fever Dream <b>7 times</b> in the span of <b>1 second</b>.",[0,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+  makeShadow("Refined multitabber","You have <b>1 chance in 1 billion</b> every second of earning this achievement.",[1,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+  makeShadow("Tolerance","Harvest <b>32 coalescing sugar lumps</b> in the span of <b>1 hour</b>.",[2,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+  makeShadow("Hawking radiation","Ascend with <b>1 trigintillion cookies</b> baked <b>100 times</b>.",[3,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+  makeShadow("Industrial sprawl","Obtain a single building special with a duration of <b>40 minutes</b>.",[4,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+  makeShadow("Sans Undertale","Bake <b>100 trequinquagintillion</b> cookies in one ascension.",[9,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    
   LocalizeUpgradesAndAchievs()
+  },
+
+  save:function(){
+  let str = ""
+  for(let i of BFSachievements)str+=i.won
+  for(let i of BFSshadows)str+=i.won
+  return str;
+  },
+
+  load: function(str){
+  for(let i in BFSachievements)BFSachievements[i].won=Number(str[i])
+  for(let i in BFSshadows)BFSshadows[i].won=Number(str[i])
   }
   })
