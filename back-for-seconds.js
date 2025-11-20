@@ -2,12 +2,15 @@ function makeCBTA(name,x,y) {
   Game.BankAchievement(name)
   Game.Achievements[name].icon = [x,y,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528']
   BFSachievements.push(Game.Achievements[name])
+  AllBFS.push(Game.Achievements[name])
 }
 
 function makeShadow(name,desc,[x,y,sheet]) {
   new Game.Achievement(name,desc,[x,y,sheet])
   Game.Achievements[name].pool = 'shadow'
+  Game.Achievements[name].order = 67001
   BFSshadows.push(Game.Achievements[name])
+  AllBFS.push(Game.Achievements[name])
 }
 
 function addPool(achievs,pool) {
@@ -48,6 +51,7 @@ Game.registerMod("BackForSeconds", {
   document.head.appendChild(customStyle2)
 
   BFSachievements = [ ]
+  AllBFS = [ ]
 
   makeCBTA("Back for seconds",0,0)
   makeCBTA("Unstoppable force",1,0)
@@ -92,19 +96,21 @@ Game.registerMod("BackForSeconds", {
   makeShadow("Hawking radiation","Ascend with <b>1 trigintillion cookies</b> baked <b>100 times</b>.",[3,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
   makeShadow("Industrial sprawl","Obtain a single building special with a duration of <b>40 minutes</b>.",[4,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
   makeShadow("Sans Undertale","Bake <b>100 trequinquagintillion</b> cookies in one ascension.",[9,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+
+  Game.BankAchievements.push(Game.Achievements["Sans Undertale"])
+  Game.Achievements["Sans Undertale"].threshold = 10**164
     
   LocalizeUpgradesAndAchievs()
   },
 
   save:function(){
   let str = ""
-  for(let i of BFSachievements)str+=i.won
-  for(let i of BFSshadows)str+=i.won
+  for(let i of AllBFS)str+=i.won
+
   return str;
   },
 
   load: function(str){
-  for(let i in BFSachievements)BFSachievements[i].won=Number(str[i])
-  for(let i in BFSshadows)BFSshadows[i].won=Number(str[i])
+  for(let i in AllBFS)AllBFS[i].won=Number(str[i])
   }
   })
