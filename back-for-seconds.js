@@ -91,6 +91,12 @@ Game.registerMod("BackForSeconds", {
   makeCBTA("Immovable object",8,2)
   makeCBTA("Call of the void",9,2)
 
+  // BFS "semishadows" get their own separate count and crates
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsOwnedOther=0;","var achievementsOwnedBFS = 0;\nvar achievementsOwnedOther=0;"))
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("else achievementsOwnedOther++;","else if (me.pool == 'back for seconds') achievementsOwnedBFS++;\nelse achievementsOwnedOther++;"))
+  eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("+(achievementsOwnedOther>0?","+(achievementsOwnedBFS>0?('<span style=\"font-weight:bold;font-size:10px;color:#c94;\"> (+'+achievementsOwnedBFS+')</span>'):'')+(achievementsOwnedOther>0?"))
+
+  // achievements display in the right place but don't count to milk or achievement total
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
   eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'normal');\nvar achievementsStr='';"))
