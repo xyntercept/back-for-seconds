@@ -137,7 +137,6 @@ Game.registerMod("BackForSeconds", {
     for(let i of AllBFS)str+=i.won
     str+="|"+trigAscends+"|"
     str+=gotTrig
-    console.log(trigAscends + " " + gotTrig + " " + str)
     return str;
   },
 
@@ -145,6 +144,5 @@ Game.registerMod("BackForSeconds", {
     for(let i in AllBFS)AllBFS[i].won=Number(str[i])
     trigAscends = parseInt(str.split("|")[1])
     gotTrig = Number(str[str.length-1])
-    console.log(str)
   }
   })
