@@ -95,8 +95,8 @@ Game.registerMod("BackForSeconds", {
     makeCBTA("Not because it is easy, but because it is tasty",1,1)
     makeCBTA("Accretion disk",2,1)
     makeCBTA("Event horizon",3,1)
-    makeCBTA("Make it or bake it",4,1)
-    makeCBTA("Dangerously out of balance",5,1)
+    makeCBTA("Dangerously out of balance",4,1)
+    makeCBTA("Make it or bake it",5,1)
     makeCBTA("Hard to swallow",6,1)
     makeCBTA("The baker's oven cannot be stopped",7,1)
     makeCBTA("The googologist",8,1)
@@ -107,7 +107,7 @@ Game.registerMod("BackForSeconds", {
     makeCBTA("The way the cookie crumbles",3,2)
     makeCBTA("Dessert stomach",4,2)
     makeCBTA("Lightning in a bottle",5,2)
-    makeCBTA("Better than Linus",6,2)
+    makeCBTA("Better than Linus",6,2)  
     makeCBTA("Life, liberty, and pursuit of cookies",7,2)
     makeCBTA("Immovable object",8,2)
     makeCBTA("Call of the void",9,2)
@@ -122,18 +122,22 @@ Game.registerMod("BackForSeconds", {
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'normal');\nvar achievementsStr='';"))
     
-    makeShadow("Gambler's raving fantasy","Cast Force the Hand of Fate from Gambler's Fever Dream <b>7 times</b> in the span of <b>1 second</b>.",[0,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
-    makeShadow("Refined multitabber","You have <b>1 chance in 1 billion</b> every second of earning this achievement.",[1,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
-    makeShadow("Tolerance","Harvest <b>32 coalescing sugar lumps</b> in the span of <b>1 hour</b>.",[2,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
-    makeShadow("Hawking radiation","Ascend with <b>1 trigintillion cookies</b> baked <b>100 times</b>.",[3,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
-    makeShadow("Industrial sprawl","Obtain a single building special with a duration of <b>40 minutes</b>.",[4,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
-    makeShadow("Sans Undertale","Bake <b>100 trequinquagintillion</b> cookies in one ascension.",[9,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    makeShadow("Gambler's raving fantasy","Cast Force the Hand of Fate from Gambler's Fever Dream <b>7 times</b> in the span of <b>1 second</b>. <q>Finnlesser see, finnlesser do.</q>",[0,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    makeShadow("Refined multitabber","You have <b>1 chance in 1 billion</b> every second of earning this achievement. <q>Does this count as a hardware advantage?</q>",[1,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    makeShadow("Tolerance","Harvest <b>32 coalescing sugar lumps</b> in the span of <b>1 hour</b>. <q>Man, you really gotta quit this sugar stuff. It's ruining your life. I mean, this is the third time this week you've blown all your magic just to buy some low-quality sugar off the streets. This isn't sustainable, and I know it's easy for me to say, but you gotta do something before it gets worse. It's just been real worrying to see you like this, and your family'd probably agree.<br><br>...<br><br>Ah, what the hell, one more won't hurt. Here you go.</q>",[2,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    makeShadow("Hawking radiation","Ascend with <b>1 trigintillion cookies</b> baked <b>100 times</b>. <q>Anything and everything, big or small, will eventually dissolve with the passage of time. Especially your sanity.</q>",[3,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    makeShadow("Industrial sprawl","Obtain a single building special with a duration of <b>40 minutes</b>. <q>Who the hell starts a combo like that? I just sat down!</q>",[4,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
+    makeShadow("Sans Undertale","Bake <b>100 trequinquagintillion</b> cookies in one ascension. <q>* my brother has a very special combo.</q>",[9,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
 
     // sand under table
     Game.BankAchievements.push(Game.Achievements["Sans Undertale"])
     Game.Achievements["Sans Undertale"].threshold = 10**164
     
     LocalizeUpgradesAndAchievs()
+    Game.Achievements["Back for seconds"].ddesc+=" <q>Oh boy, I usually only get this excited when they say the name of the mod <i>in</i> the mod!</q>"
+    Game.Achievements["Event horizon"].ddesc+=" <q>Oh, not even light can escape? Then what the hell are we gonna do with all these prisms?!</q>"
+    Game.Achievements["It doesn't matter if they hate you if they all say your name"].ddesc+=" <q>We're all part of this old cookie game...</q>"
+    Game.Achievements["Better than Linus"].ddesc+=" <q>If you are Linus, please tell XYntercept that this achievement is outdated. Apologies for any inconvenience.</q>"
 
     // industrial sprawl
     Game.registerHook('logic',function(){if (checkIndustrialSprawl()) Game.Win("Industrial sprawl")})
