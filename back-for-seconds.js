@@ -14,13 +14,13 @@ function makeShadow(name,desc,[x,y,sheet]) {
 }
 
 function addBFSPool(achievs,pool) {
-  for (var i = 0; i < achievs.length; i++) {
+  for (let i = 0; i < achievs.length; i++) {
     achievs[i].pool = pool
   }
 }
 
 function checkIndustrialSprawl() {
-  for (var i in Game.buffs) {
+  for (let i in Game.buffs) {
     if (Game.buffs[i].type.name == 'building buff' && Game.buffs[i].maxTime >= 72000) return true
   }
   return false
@@ -44,7 +44,7 @@ var gotTrig = 0
 var GFRloaded = false
 var GfthofTimes = [ ]
 
-var lumpGains = [ ]
+var lumpTimes = [ ]
 
 var BFSachievements = [ ]
 var AllBFS = [ ]
@@ -149,21 +149,29 @@ Game.registerMod("BackForSeconds", {
 
     // gambler's raving fantasy
     Game.registerHook('logic',function(){if (Game.Objects["Wizard tower"].minigameLoaded && !GFRloaded) loadGfrChecker()})
-    // tolerance
     
+    // tolerance
+    eval("Game.gainLumps="+Game.gainLumps.toString().replace("Game.lumpsTotal+=total;","Game.lumpsTotal+=total\nfor (let i = 0; i < total; i++) lumpTimes.push(Date.now());"))
+    eval("Game.computeLumpTimes="+Game.computeLumpTimes.toString().replace("Game.computeLumpType();","Game.computeLumpType();\nlumpTimes = [ ]"))
+    Game.registerHook('check',function(){while (Date.now()-lumpTimes[0] > 3600000) lumpTimes.shift()})
+    Game.registerHook('check',function(){if (lumpTimes.length >= 32) Game.Win("Tolerance")})
+    Game.registerHook('reset',function(wipe){if (wipe) lumpTimes = [ ]})
   },
 
   save:function(){
     let str = ""
-    for(let i of AllBFS)str+=i.won
+    for (let i of AllBFS) str+=i.won
     str+="|"+trigAscends+"|"
     str+=gotTrig
+    for(let i of lumpTimes) str+="|"+i
     return str;
   },
 
   load: function(str){
-    for(let i in AllBFS)AllBFS[i].won=Number(str[i])
+    for (let i in AllBFS) AllBFS[i].won=Number(str[i])
     trigAscends = parseInt(str.split("|")[1])
     gotTrig = parseInt(str.split("|")[2])
+    lumpTimes = [ ]
+    for (let i in str.split("|").slice(3)) {lumpTimes.push(str.split("|").slice(3)[i]); console.log(str.split("|").slice(3)[i])}
   }
   })
