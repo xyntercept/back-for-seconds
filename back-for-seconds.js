@@ -26,8 +26,19 @@ function checkIndustrialSprawl() {
   return false
 }
 
+function incrementGfthof(spell,time,array) {
+  while (time-array[0] > 1000) array.shift(0);
+  if (spell.name == 'Force the Hand of Fate') array.push(time)
+}
+  
 var trigAscends = 0
 var gotTrig = 0
+
+var GfthofTimes = [ ]
+
+var BFSachievements = [ ]
+var AllBFS = [ ]
+var BFSshadows = [ ]
 
 Game.registerMod("BackForSeconds", {
   init:function(){
@@ -59,9 +70,6 @@ Game.registerMod("BackForSeconds", {
       -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
     }`
     document.head.appendChild(customStyle2)
-
-    BFSachievements = [ ]
-    AllBFS = [ ]
 
     makeCBTA("Back for seconds",0,0)
     makeCBTA("Unstoppable force",1,0)
@@ -103,8 +111,6 @@ Game.registerMod("BackForSeconds", {
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'normal');\nvar achievementsStr='';"))
-
-    BFSshadows = [ ]
     
     makeShadow("Gambler's raving fantasy","Cast Force the Hand of Fate from Gambler's Fever Dream <b>7 times</b> in the span of <b>1 second</b>.",[0,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
     makeShadow("Refined multitabber","You have <b>1 chance in 1 billion</b> every second of earning this achievement.",[1,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
@@ -130,6 +136,10 @@ Game.registerMod("BackForSeconds", {
     Game.registerHook('reincarnate',function(){if (gotTrig==1) {trigAscends++; gotTrig = 0; console.log("after this ascend: " + trigAscends)}})
     Game.registerHook('reincarnate',function(){if (trigAscends >= 100) Game.Win("Hawking radiation")})
     Game.registerHook('reset',function(wipe){if (wipe) {trigAscends = 0; gotTrig = 0}})
+
+    // gambler's raving fantasy
+    const M = Game.Objects["Wizard tower"].minigame
+    eval('M.spells["gambler\'s fever dream"].win='+M.spells["gambler\'s fever dream"].win.toString().replace("var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});","var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});\nif (out) incrementGfthof(spell,GfthofTimes,Date.now()"))
   },
 
   save:function(){
