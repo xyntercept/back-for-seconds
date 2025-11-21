@@ -26,9 +26,10 @@ function checkIndustrialSprawl() {
   return false
 }
 
-function incrementGfthof(spell,time,array) {
-  while (time-array[0] > 1000) array.shift(0);
-  if (spell.name == 'Force the Hand of Fate') array.push(time)
+function incrementGfthof(spell,time) {
+  while (time-GfthofTimes[0] > 1000) GfthofTimes.shift(0);
+  if (spell.name == 'Force the Hand of Fate') GfthofTimes.push(time)
+  if (GfthofTimes.length >= 7) Game.Win("Gambler's raving fantasy")
 }
   
 var trigAscends = 0
@@ -139,7 +140,7 @@ Game.registerMod("BackForSeconds", {
 
     // gambler's raving fantasy
     const M = Game.Objects["Wizard tower"].minigame
-    eval('M.spells["gambler\'s fever dream"].win='+M.spells["gambler\'s fever dream"].win.toString().replace("var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});","var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});\nif (out) incrementGfthof(spell,GfthofTimes,Date.now()"))
+    eval('M.spells["gambler\'s fever dream"].win='+M.spells["gambler\'s fever dream"].win.toString().replace("var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});","var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});\nif (out) incrementGfthof(spell,Date.now())"))
   },
 
   save:function(){
