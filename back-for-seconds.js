@@ -26,6 +26,12 @@ function checkIndustrialSprawl() {
   return false
 }
 
+function loadGfrChecker() {
+  M = Game.Objects["Wizard tower"].minigame
+  GFRloaded = true;
+  eval('M.spells["gambler\'s fever dream"].win='+M.spells["gambler\'s fever dream"].win.toString().replace("var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});","var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});\nif (out) incrementGfthof(spell,Date.now())"))
+}  
+
 function incrementGfthof(spell,time) {
   while (time-GfthofTimes[0] > 1000) GfthofTimes.shift(0);
   if (spell.name == 'Force the Hand of Fate') GfthofTimes.push(time)
@@ -35,7 +41,10 @@ function incrementGfthof(spell,time) {
 var trigAscends = 0
 var gotTrig = 0
 
+var GFRloaded = false
 var GfthofTimes = [ ]
+
+var lumpGains = [ ]
 
 var BFSachievements = [ ]
 var AllBFS = [ ]
@@ -139,8 +148,9 @@ Game.registerMod("BackForSeconds", {
     Game.registerHook('reset',function(wipe){if (wipe) {trigAscends = 0; gotTrig = 0}})
 
     // gambler's raving fantasy
-    const M = Game.Objects["Wizard tower"].minigame
-    eval('M.spells["gambler\'s fever dream"].win='+M.spells["gambler\'s fever dream"].win.toString().replace("var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});","var out=M.castSpell(spell,{cost:cost,failChanceMax:0.5,passthrough:true});\nif (out) incrementGfthof(spell,Date.now())"))
+    Game.registerHook('logic',function(){if (Game.Objects["Wizard tower"].minigameLoaded && !GFRloaded) loadGfrChecker()})
+    // tolerance
+    
   },
 
   save:function(){
@@ -154,6 +164,6 @@ Game.registerMod("BackForSeconds", {
   load: function(str){
     for(let i in AllBFS)AllBFS[i].won=Number(str[i])
     trigAscends = parseInt(str.split("|")[1])
-    gotTrig = Number(str[str.length-1])
+    gotTrig = parseInt(str.split("|")[2])
   }
   })
