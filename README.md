@@ -1,3 +1,5 @@
+# note: It's broken right now please don't use it on finnless
+
 # Back For Seconds
 
 This is a cookie clicker mod designed for the [finnless ruleset](https://docs.google.com/document/d/1Z9YV1ZvQNOxQ_4LCZguFG0CW0uCEf8fkpPgFr4720E0/edit).
