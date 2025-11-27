@@ -1,6 +1,7 @@
 function makeCBTA(name,x,y) {
   Game.BankAchievement(name)
   Game.Achievements[name].icon = [x,y,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528']
+  Game.Achievements[name].pool = [x,y,'back for seconds']
   BFSachievements.push(Game.Achievements[name])
   AllBFS.push(Game.Achievements[name])
 }
