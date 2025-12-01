@@ -66,7 +66,7 @@ Game.registerMod("BackForSeconds", {
     const customStyle = document.createElement('style')
     customStyle.type = 'text/css'
     customStyle.textContent = `
-    .icon
+    .icon, .crate
     {
       image-rendering: optimizeSpeed;             /* Older versions of FF          */
       image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
@@ -76,20 +76,6 @@ Game.registerMod("BackForSeconds", {
       -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
     }`
     document.head.appendChild(customStyle)
-
-    const customStyle2 = document.createElement('style')
-    customStyle2.type = 'text/css'
-    customStyle2.textContent = `
-    .crate
-    {
-      image-rendering: optimizeSpeed;             /* Older versions of FF          */
-      image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
-      image-rendering: -webkit-optimize-contrast; /* Safari                        */
-      image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
-      image-rendering: pixelated;                 /* Future-browsers                 */
-      -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
-    }`
-    document.head.appendChild(customStyle2)
 
     makeCBTA("Back for seconds",0,0)
     makeCBTA("Unstoppable force",1,0)
