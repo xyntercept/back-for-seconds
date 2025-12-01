@@ -130,6 +130,8 @@ Game.registerMod("BackForSeconds", {
     makeShadow("Industrial sprawl","Obtain a single building special with a duration of <b>40 minutes</b>. <q>Who the hell starts a combo like that? I just sat down!</q>",[4,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
     makeShadow("Sans Undertale","Bake <b>100 trequinquagintillion</b> cookies in one ascension. <q>* my brother has a very special combo.</q>",[9,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
 
+    eval("Game.LoadSave="+Game.LoadSave.toString().replace("Game.loadModData();","for (let i in AllBFS) AllBFS[i].won=0\nGame.loadModData();"))
+    
     // sand under table
     Game.BankAchievements.push(Game.Achievements["Sans Undertale"])
     Game.Achievements["Sans Undertale"].threshold = 10**164
