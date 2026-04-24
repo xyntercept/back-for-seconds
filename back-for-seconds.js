@@ -92,7 +92,7 @@ Game.registerMod("BackForSeconds", {
     makeCBTA("Accretion disk",2,1)
     makeCBTA("Event horizon",3,1)
     makeCBTA("Dangerously out of balance",4,1)
-    makeCBTA("Make it or bake it",5,1)
+    makeCBTA("Bake it or break it",5,1)
     makeCBTA("Hard to swallow",6,1)
     makeCBTA("The baker's oven cannot be stopped",7,1)
     makeCBTA("The googologist",8,1)
@@ -115,6 +115,9 @@ Game.registerMod("BackForSeconds", {
 
     // achievements display in the right place but don't count to milk or achievement total
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\nelse achievementsOwnedOther++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\nelse achievementsOwnedOther++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;","if (BFSachievements.includes(it)) it.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;\nif (BFSachievements.includes(it)) it.pool='normal';"))
+    
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'normal');\nvar achievementsStr='';"))
     
