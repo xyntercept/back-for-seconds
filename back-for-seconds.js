@@ -4,13 +4,14 @@ function makeCBTA(name,x,y) {
   Game.Achievements[name].pool = [x,y,'back for seconds']
   BFSachievements.push(Game.Achievements[name])
   AllBFS.push(Game.Achievements[name])
+  
 }
 
 function makeShadow(name,desc,[x,y,sheet]) {
   new Game.Achievement(name,desc,[x,y,sheet])
   Game.Achievements[name].pool = 'shadow'
   Game.Achievements[name].order = 67001
-  BFSshadows.push(Game.Achievements[name])
+  BFSshadows.push(name)
   AllBFS.push(Game.Achievements[name])
 }
 
@@ -53,10 +54,10 @@ var gotTrig = 0
 
 var GFRloaded = false
 var GfthofTimes = [ ]
-
 var lumpTimes = [ ]
 
 var BFSachievements = [ ]
+var BFSnames = [ ]
 var AllBFS = [ ]
 var BFSshadows = [ ]
 
@@ -114,14 +115,14 @@ Game.registerMod("BackForSeconds", {
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("+(achievementsOwnedOther>0?","+(achievementsOwnedBFS>0?('<span style=\"font-weight:bold;font-size:10px;color:#c94;\"> (+'+achievementsOwnedBFS+')</span>'):'')+(achievementsOwnedOther>0?"))
 
     // achievements display in the right place but don't count to milk or achievement total
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='normal';"))
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;","if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\n"))
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("else achievementsOwnedOther++;","else achievementsOwnedOther++;\n if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='normal';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name)) me.pool='normal';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;","if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\n"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("else achievementsOwnedOther++;","else achievementsOwnedOther++;\n if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name)) me.pool='normal';"))
     
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;","if (Game.CountsAsAchievementOwned(it.pool) && !(me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528')) Game.AchievementsOwned++;"))
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(Game.Achievements[what].pool)) Game.AchievementsOwned--;","if (Game.CountsAsAchievementOwned(Game.Achievements[what].pool) && !(me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528')) Game.AchievementsOwned--;"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;","if (Game.CountsAsAchievementOwned(it.pool) && !(me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name))) Game.AchievementsOwned++;"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(Game.Achievements[what].pool)) Game.AchievementsOwned--;","if (Game.CountsAsAchievementOwned(Game.Achievements[what].pool) && !(me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name))) Game.AchievementsOwned--;"))
     
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='back for seconds';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528' && !BFSshadows.includes(me.name)) me.pool='back for seconds';"))
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'back for seconds');\nvar achievementsStr='';"))
     
     makeShadow("Gambler's raving fantasy","Cast Force the Hand of Fate from Gambler's Fever Dream <b>7 times</b> in the span of <b>1 second</b>. <q>Finnlesser see, finnlesser do.</q>",[0,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
@@ -158,7 +159,7 @@ Game.registerMod("BackForSeconds", {
     
     // tolerance
     eval("Game.gainLumps="+Game.gainLumps.toString().replace("Game.lumpsTotal+=total;","Game.lumpsTotal+=total\nfor (let i = 0; i < total; i++) lumpTimes.push(Date.now());"))
-    eval("Game.loadLumps="+Game.loadLumps.toString().replace("Game.computeLumpType();","Game.computeLumpType();\nlumpTimes = [ ]"))
+    eval("Game.loadLumps="+Game.loadLumps.toString().replace("Game.computeLumpType();","Game.computeLumpType();\nif (Date.now()-lumpTimes[lumpTimes.length-1] > 3600000) lumpTimes = [ ]"))
     Game.registerHook('check',function(){while (Date.now()-lumpTimes[0] > 3600000) lumpTimes.shift()})
     Game.registerHook('check',function(){if (lumpTimes.length >= 32) Game.Win("Tolerance")})
     Game.registerHook('reset',function(wipe){if (wipe) lumpTimes = [ ]})
