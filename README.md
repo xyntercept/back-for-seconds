@@ -1,4 +1,4 @@
-# note: It's broken right now please don't use it on finnless
+# note: I think it's not broken anymore but be careful
 
 # Back For Seconds
 
