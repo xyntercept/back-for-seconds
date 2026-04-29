@@ -137,7 +137,7 @@ Game.registerMod("BackForSeconds", {
     Game.Achievements["Sans Undertale"].threshold = 10**164
     
     LocalizeUpgradesAndAchievs()
-    Game.Achievements["Back for seconds"].ddesc+=" <q>Oh boy, I usually only get this excited when they say the name of the mod <i>in</i> the mod!</q>"
+    Game.Achievements["Back for seconds"].ddesc+=" <q>Oh, so <i>that's</i> why they call it that.</q>"
     Game.Achievements["Event horizon"].ddesc+=" <q>I'm sure all those prisms you bought are real damn useful now...</q>"
     Game.Achievements["It doesn't matter if they hate you if they all say your name"].ddesc+=" <q>We're all part of this old cookie game...</q>"
     Game.Achievements["Better than Linus"].ddesc+=" <q>If you are Linus, please tell XYntercept that this achievement is outdated. Apologies for any inconvenience.</q>"
