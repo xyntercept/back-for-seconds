@@ -114,12 +114,15 @@ Game.registerMod("BackForSeconds", {
     eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("+(achievementsOwnedOther>0?","+(achievementsOwnedBFS>0?('<span style=\"font-weight:bold;font-size:10px;color:#c94;\"> (+'+achievementsOwnedBFS+')</span>'):'')+(achievementsOwnedOther>0?"))
 
     // achievements display in the right place but don't count to milk or achievement total
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\nelse achievementsOwnedOther++;","if (BFSachievements.includes(me)) me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\nelse achievementsOwnedOther++;\nif (BFSachievements.includes(me)) me.pool='normal';"))
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;","if (BFSachievements.includes(it)) it.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;\nif (BFSachievements.includes(it)) it.pool='normal';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;","if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsTotal++;\nif (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='normal';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;","if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='back for seconds';\nif (Game.CountsAsAchievementOwned(me.pool)) achievementsOwned++;\n"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("else achievementsOwnedOther++;","else achievementsOwnedOther++;\nconsole.log(me.pool);\n if (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='normal';"))
     
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (BFSachievements.includes(me)) me.pool='back for seconds';"))
-    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'normal');\nvar achievementsStr='';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(it.pool)) Game.AchievementsOwned++;","if (Game.CountsAsAchievementOwned(it.pool) && !(me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528')) Game.AchievementsOwned++;"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("if (Game.CountsAsAchievementOwned(Game.Achievements[what].pool)) Game.AchievementsOwned--;","if (Game.CountsAsAchievementOwned(Game.Achievements[what].pool) && !(me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528')) Game.AchievementsOwned--;"))
+    
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("achievements[pool]+=Game.crate(me,'stats');","achievements[pool]+=Game.crate(me,'stats');\nif (me.icon[2]=='https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528') me.pool='back for seconds';"))
+    eval("Game.UpdateMenu="+Game.UpdateMenu.toString().replace("var achievementsStr='';","addBFSPool(BFSachievements,'back for seconds');\nvar achievementsStr='';"))
     
     makeShadow("Gambler's raving fantasy","Cast Force the Hand of Fate from Gambler's Fever Dream <b>7 times</b> in the span of <b>1 second</b>. <q>Finnlesser see, finnlesser do.</q>",[0,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
     makeShadow("Refined multitabber","You have <b>1 chance in 1 billion</b> every second of earning this achievement. <q>Does this count as a hardware advantage?</q>",[1,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
@@ -127,8 +130,6 @@ Game.registerMod("BackForSeconds", {
     makeShadow("Hawking radiation","Ascend with <b>1 trigintillion cookies</b> baked <b>100 times</b>. <q>Anything and everything, big or small, will eventually dissolve with the passage of time. Especially your sanity.</q>",[3,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
     makeShadow("Industrial sprawl","Obtain a single building special with a duration of <b>40 minutes</b>. <q>Who the hell starts a combo like that? I just sat down!</q>",[4,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
     makeShadow("Sans Undertale","Bake <b>100 trequinquagintillion</b> cookies in one ascension. <q>* my brother has a very special combo.</q>",[9,5,'https://file.garden/aRv22xnkRhEaeVoP/bfs.png?v=1763635316528'])
-
-    eval("Game.LoadSave="+Game.LoadSave.toString().replace("Game.loadModData();","resetBFSProgress()\nGame.modSaveData['BackForSeconds']=Game.mods['BackForSeconds']['save']()\nGame.loadModData();"))
     
     // sand under table
     Game.BankAchievements.push(Game.Achievements["Sans Undertale"])
@@ -169,6 +170,7 @@ Game.registerMod("BackForSeconds", {
     str+="|"+trigAscends+"|"
     str+=gotTrig
     for(let i of lumpTimes) str+="|"+i
+    console.trace(str)
     return str;
   },
 
