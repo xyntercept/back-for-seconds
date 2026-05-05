@@ -23,7 +23,7 @@ function addBFSPool(achievs,pool) {
 
 function checkIndustrialSprawl() {
   for (let i in Game.buffs) {
-    if (Game.buffs[i].type.name == 'building buff' && Game.buffs[i].maxTime >= 72000) return true
+    if (Game.buffs[i].type.name == 'building buff' && Game.buffs[i].maxTime >= 54000) return true
   }
   return false
 }
