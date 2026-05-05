@@ -15,7 +15,7 @@ It also adds 6 shadow achievements:
 - **Refined Multitabber**: You have a 1 in 1 billion chance of earning this achievement every second.
 - **Tolerance**: Harvest 32 sugar lumps in 1 hour.
 - **Hawking Radiation**: Ascend 100 times at 1 trigintillion cookies baked each.
-- **Industrial Sprawl**: Obtain a single building special that is 40 minutes in length.
+- **Industrial Sprawl**: Obtain a single building special that is 30 minutes in length.
 
 and you can't forget
 - **Sans Undertale**: Bake 100 trequinquagintillion cookies in 1 ascension.
