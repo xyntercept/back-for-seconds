@@ -63,6 +63,7 @@ var BFSshadows = [ ]
 
 Game.registerMod("BackForSeconds", {
   init:function(){
+    if (l("topbarFrenzy")) {Game.Notify(loc("Fake Cookie Clicker detected"),loc("This is a fake version that is trying to scam you. Use a good-faith rehost or play the real game."),[10,6]); return;};
     
     const customStyle = document.createElement('style')
     customStyle.type = 'text/css'
